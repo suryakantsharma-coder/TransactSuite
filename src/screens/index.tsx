@@ -5,6 +5,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {useAppKitAccount} from '@reown/appkit-ethers-react-native';
 import CoreScreens from './core-screens';
+import SendScreen from './core-screens/account-screen/SendScreen';
 
 const RootComponents = (style: any) => {
   const Stack = createNativeStackNavigator();
@@ -35,6 +36,13 @@ const RootComponents = (style: any) => {
           <Stack.Screen
             name="Wallet"
             component={CoreScreens}
+            options={{
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="Send"
+            component={SendScreen}
             options={{
               headerShown: false,
             }}

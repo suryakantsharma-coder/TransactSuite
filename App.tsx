@@ -24,7 +24,9 @@ import {
   LearnMoreLinks,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
+import 'react-native-gesture-handler';
 import RootComponents from './src/screens';
+import {GestureHandlerRootView} from 'react-native-gesture-handler';
 
 type SectionProps = PropsWithChildren<{
   title: string;
@@ -60,13 +62,15 @@ function App(): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
 
   return (
-    <SafeAreaView style={styles.backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={styles.backgroundStyle.backgroundColor}
-      />
-      <RootComponents style={{height: '100%'}} />
-    </SafeAreaView>
+    <GestureHandlerRootView>
+      <SafeAreaView style={styles.backgroundStyle}>
+        <StatusBar
+          barStyle={isDarkMode ? 'light-content' : 'dark-content'}
+          backgroundColor={styles.backgroundStyle.backgroundColor}
+        />
+        <RootComponents style={{height: '100%'}} />
+      </SafeAreaView>
+    </GestureHandlerRootView>
   );
 }
 
