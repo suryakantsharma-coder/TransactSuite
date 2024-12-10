@@ -17,7 +17,11 @@ interface sendTransactionProps {
 const useConnectedAccount = () => {
   const {address, isConnected} = useAccount();
   const {data} = useBalance({address: address});
-  const {sendTransactionAsync} = useSendTransaction();
+  const {
+    sendTransactionAsync,
+    sendTransaction,
+    data: txData,
+  } = useSendTransaction();
   const {signMessageAsync} = useSignMessage();
 
   // states
@@ -38,14 +42,17 @@ const useConnectedAccount = () => {
     }
   };
 
-  const sendTranaction = async () => {
+  const sendTranaction = async (): Promise<any> => {
     try {
       if (toAddress && value) {
-        const txHash: any = await sendTransactionAsync({
+        console.log({txHash: 'GOTO GO'});
+        const txHash = await sendTransaction({
           to: toAddress,
           value: parseEther(value),
         });
-        Alert.alert(txHash?.hash?.toString() || '');
+        console.log({txHash});
+        // Alert.alert(txHash?.hash?.toString() || '');
+        return txHash;
       }
     } catch (err) {
       console.log(err);
@@ -70,6 +77,7 @@ const useConnectedAccount = () => {
       symbol: data?.symbol,
     },
     value,
+    txData,
     sendTranaction,
     SignMessage,
     toAddressfn,

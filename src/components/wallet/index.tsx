@@ -2,7 +2,7 @@ const projectId = '41aa2783faf05fd01162f296c02e4bfb';
 
 import '@walletconnect/react-native-compat';
 import {WagmiProvider} from 'wagmi';
-import {mainnet, polygon, arbitrum} from '@wagmi/core/chains';
+import {mainnet, polygon, arbitrum, polygonAmoy} from '@wagmi/core/chains';
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
 import {
   createAppKit,
@@ -23,7 +23,7 @@ const metadata = {
   },
 };
 
-const chains = [mainnet, polygon, arbitrum] as const;
+const chains = [mainnet, polygonAmoy, polygon, arbitrum] as const;
 
 const wagmiConfig = defaultWagmiConfig({chains, projectId, metadata});
 

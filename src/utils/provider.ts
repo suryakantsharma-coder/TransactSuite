@@ -17,3 +17,16 @@ export const getProvider = (chainId: any) => {
       return POLYGON_RPC_URL;
   }
 };
+
+export const getExplorerUrl = (chainId: number, hash: string): string => {
+  switch (chainId) {
+    case 137:
+      return 'https://polygonscan.com/tx/' + hash;
+
+    case 1:
+      return 'https://etherscan.io/tx/' + hash;
+
+    default:
+      return 'https://polygonscan.com/tx/' + hash;
+  }
+};

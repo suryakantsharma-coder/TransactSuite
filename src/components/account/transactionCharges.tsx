@@ -25,7 +25,7 @@ const TransactionCharges = ({amount}: transactionChargesParams) => {
       <View style={styles.container}>
         <Text style={styles.paragraphP1}>{'Total value: '}</Text>
         <Text style={styles.paragraphP1}>
-          {parseFloat(fees || '0.0') + (amount || 0)}
+          {parseFloat(fees || '0.0') + parseFloat(amount?.toString() || '0')}
         </Text>
       </View>
     </View>

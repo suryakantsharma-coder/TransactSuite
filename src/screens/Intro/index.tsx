@@ -57,6 +57,9 @@ const WalletConnectScreen = () => {
               onPress={() => {
                 // @ts-ignore
                 navigation.navigate('Wallet');
+              }}
+              onLongPress={() => {
+                open();
               }}>
               <Text style={styles.GetStartedText}>{"Let's Go"}</Text>
             </TouchableOpacity>

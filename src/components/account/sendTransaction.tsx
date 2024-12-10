@@ -6,15 +6,28 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import SwipeButton from 'rn-swipe-button';
 import TransactionCharges from './transactionCharges';
 import useConnectedAccount from '../../hooks/useConnectedAccount';
-import QRCode from 'react-native-qrcode-svg';
+import TransactionStatus from './transactionScreen';
+import BottomSheetDialog from '../core/BottomSheetDialog';
+import {useEffect, useState} from 'react';
+import SwipeButton from 'rn-swipe-button';
 
 const QrScanner = require('../../assets/account-screen/qrcode-scan.png');
 
 const SendTransaction = () => {
-  const {toAddressfn, toValuefn, sendTranaction, value} = useConnectedAccount();
+  const {toAddressfn, toValuefn, sendTranaction, value, txData} =
+    useConnectedAccount();
+  const [hash, setHash] = useState<string | any>();
+  const [open, setOpen] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (txData) {
+      console.log({txData});
+      setHash(txData);
+      setOpen(true);
+    }
+  }, [txData]);
 
   return (
     <View style={styles.root}>
@@ -58,33 +71,43 @@ const SendTransaction = () => {
         />
       </View>
 
-      <View>
-        <TransactionCharges amount={parseFloat(value)} />
-      </View>
-
-      <View style={styles.swipeButtonContainer}>
-        <View
-          style={{
-            width: '100%',
-          }}>
-          <SwipeButton
-            title="Swipe to Pay"
-            titleMaxFontScale={12}
-            titleFontSize={18}
-            titleMaxLines={1}
-            titleColor="white"
-            railBackgroundColor="#141414"
-            thumbIconBorderColor="#222222"
-            thumbIconBackgroundColor="#222222"
-            thumbIconWidth={80}
-            height={60}
-            onSwipeSuccess={() => {
-              console.log('Submitted successfully!');
-              sendTranaction();
-            }}
-          />
+      {value > 0 && (
+        <View>
+          <TransactionCharges amount={value} />
         </View>
-      </View>
+      )}
+
+      {open && hash && (
+        <BottomSheetDialog onClose={setOpen}>
+          <TransactionStatus hash={hash} setOpen={setOpen} />
+        </BottomSheetDialog>
+      )}
+
+      {!open && (
+        <View style={styles.swipeButtonContainer}>
+          <View
+            style={{
+              width: '100%',
+            }}>
+            <SwipeButton
+              title="Swipe to Pay"
+              titleMaxFontScale={12}
+              titleFontSize={18}
+              titleMaxLines={1}
+              titleColor="white"
+              railBackgroundColor="#141414"
+              thumbIconBorderColor="#222222"
+              thumbIconBackgroundColor="#222222"
+              thumbIconWidth={80}
+              height={60}
+              onSwipeSuccess={async () => {
+                console.log('Submitted successfully!');
+                const txHash = await sendTranaction();
+              }}
+            />
+          </View>
+        </View>
+      )}
     </View>
   );
 };
@@ -93,8 +116,9 @@ const styles = StyleSheet.create({
   root: {
     width: '100%',
     height: '100%',
-    backgroundColor: '#141414',
+    backgroundColor: '#070707',
     padding: 12,
+    position: 'relative',
   },
 
   headingH1: {

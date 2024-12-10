@@ -13,6 +13,8 @@ import SendTransaction from '../../../components/account/sendTransaction';
 import {useNavigation} from '@react-navigation/native';
 import ReceiveQrCode from '../../../components/account/receiveQrCode';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
+import TokensList from '../../../components/account/TokensList';
+import {getUserTokens} from '../../../data/tokens';
 
 const CardView = require('../../../assets/account-screen/card-background.png');
 
@@ -56,7 +58,8 @@ const AccountScreen = () => {
             style={styles.operationBtn}
             onPress={() => {
               // @ts-ignore
-              navigation.navigate('Send');
+              // navigation.navigate('Send');
+              getUserTokens(137, address);
             }}>
             <Text style={styles.operationBtnText}>Send</Text>
           </TouchableOpacity>
@@ -70,7 +73,7 @@ const AccountScreen = () => {
           </TouchableOpacity>
         </View>
 
-        <Text style={styles.homeHeading}>Transactions</Text>
+        <TokensList />
       </View>
 
       {open && (

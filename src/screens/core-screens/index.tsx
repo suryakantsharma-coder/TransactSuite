@@ -1,6 +1,7 @@
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import AccountScreen from './account-screen';
 import {Image} from 'react-native';
+import SwapScreen from './swap-screen';
 
 const HomeActive = require('../../assets/core-screen/house-blue.png');
 const HomeInactive = require('../../assets/core-screen/house-white.png');
@@ -34,7 +35,7 @@ const CoreScreens = () => {
       />
       <BottomTabs.Screen
         name="Swap"
-        component={AccountScreen}
+        component={SwapScreen}
         options={{
           headerShown: false,
           tabBarIcon: (tab: any) => {
