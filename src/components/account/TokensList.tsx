@@ -24,9 +24,15 @@ const TokensList = () => {
               <Text style={styles.rowBalance}>{item.symbol}</Text>
             </View>
             <View style={styles.rowTextContainer2}>
-              <Text style={styles.rowTitle}>{item.name}</Text>
-              <Text style={styles.rowBalance}>
+              <Text
+                style={{
+                  ...styles.rowTitle,
+                  textAlign: 'right',
+                }}>
                 {formatUnits(item.balance, item.decimals)}
+              </Text>
+              <Text style={{...styles.rowBalance, textAlign: 'right'}}>
+                {item.verified_contract ? 'Verified' : 'N/A'}
               </Text>
             </View>
           </View>
@@ -52,7 +58,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
+    justifyContent: 'space-around',
     marginTop: 10,
     gap: 10,
   },
@@ -68,7 +74,7 @@ const styles = StyleSheet.create({
   },
 
   rowTextContainer2: {
-    width: '40%',
+    width: 50,
   },
 
   rowTitle: {

@@ -5,6 +5,8 @@ import SwapScreen from './swap-screen';
 
 const HomeActive = require('../../assets/core-screen/house-blue.png');
 const HomeInactive = require('../../assets/core-screen/house-white.png');
+const SwapActive = require('../../assets/core-screen/swap-blue.png');
+const SwapInactive = require('../../assets/core-screen/swap-white.png');
 
 const CoreScreens = () => {
   const BottomTabs = createBottomTabNavigator();
@@ -41,7 +43,7 @@ const CoreScreens = () => {
           tabBarIcon: (tab: any) => {
             return (
               <Image
-                source={tab?.color == '#FFFFFF' ? HomeInactive : HomeActive}
+                source={tab?.color == '#FFFFFF' ? SwapInactive : SwapActive}
                 alt="inc"
               />
             );
